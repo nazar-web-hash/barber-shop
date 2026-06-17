@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Oswald:wght@500;700&display=swap');
+
+:root {
+    --bg-dark: #0a1128; /* Глибокий темно-синій */
+    --bg-light: #f0f4f8; /* Світло-сіро-синій */
+    --text-dark: #0a1128;
+    --text-light: #ffffff;
+    --text-muted-dark: #8c9baf;
+    --text-muted-light: #5c6a7d;
+    --accent-color: #c5a059; /* Приглушене золото */
+    --accent-hover: #a88748;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-color: var(--bg-dark);
+}
+
+h1, h2, h3, .logo { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+a { text-decoration: none; transition: color 0.3s ease; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Анімації */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* Хедер */
+.main-header {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background-color: rgba(18, 18, 18, 0.98); border-bottom: 1px solid rgba(255,255,255,0.05);
+    z-index: 1000; transition: transform 0.4s;
+}
+.main-header.header-hidden { transform: translateY(-100%); }
+.header-container { display: flex; justify-content: space-between; align-items: center; height: 90px; }
+
+.logo-link { font-size: 2.2rem; color: var(--text-light); font-weight: 700; letter-spacing: 4px; }
+.logo-link:hover { color: var(--accent-color); }
+
+.main-nav ul { display: flex; list-style: none; gap: 40px; align-items: center; }
+.main-nav a { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-light); }
+.main-nav a:hover { color: var(--accent-color); }
+
+.nav-btn { border: 1px solid var(--accent-color); border-radius: 15px; padding: 10px 20px; color: var(--accent-color) !important; }
+.nav-btn:hover { background-color: var(--accent-color); color: var(--bg-dark) !important; }
+
+/* Бургер-меню */
+.menu-toggle {
+    display: none; flex-direction: column; justify-content: space-between;
+    width: 35px; height: 24px; background: transparent; border: none; cursor: pointer; z-index: 1001;
+}
+.menu-toggle span { display: block; width: 100%; height: 2px; background-color: var(--text-light); transition: all 0.3s; }
+
+/* Кнопки (Брутальні, квадратні) */
+.btn {
+    display: inline-block; padding: 18px 45px; background-color: var(--accent-color);
+    color: var(--bg-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 3px;
+    border: none; border-radius: 15px; cursor: pointer; transition: all 0.3s; font-size: 0.9rem;
+}
+.btn:hover { background-color: var(--accent-hover); color: var(--text-light); }
+
+/* Головний екран */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.9)), 
+                url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=1920&auto=format&fit=crop') center/cover;
+    display: flex; align-items: center; justify-content: center; text-align: center; color: var(--text-light);
+}
+.hero-content h1 { font-size: 5.5rem; letter-spacing: 6px; margin-bottom: 20px; animation: fadeInUp 0.8s forwards; }
+.hero-content p { font-size: 1.3rem; color: var(--text-muted-dark); margin-bottom: 50px; animation: fadeInUp 0.8s 0.2s forwards; opacity: 0; letter-spacing: 1px; }
+.hero-content .btn { animation: fadeInUp 0.8s 0.4s forwards; opacity: 0; }
+
+/* Секції (Чергування темного і світлого) */
+.section { padding: 120px 0; }
+.section-light { background-color: var(--bg-light); color: var(--text-dark); }
+.section-dark { background-color: var(--bg-dark); color: var(--text-light); }
+
+.section-title { font-size: 3rem; margin-bottom: 60px; letter-spacing: 3px; }
+.section-light .section-title { color: var(--text-dark); }
+.section-dark .section-title { color: var(--text-light); }
+
+/* Про нас */
+.about-wrapper { display: flex; align-items: center; gap: 60px; }
+.about-text-block { flex: 1; }
+.about-text-block p { font-size: 1.2rem; color: var(--text-muted-light); line-height: 1.8; }
+.about-image { flex: 1; }
+.about-image img { width: 100%; height: auto; display: block; box-shadow: -20px 20px 0px var(--accent-color); }
+
+/* Прайс-лист (Стиль ресторанного меню) */
+.services-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+.service-category h3 { font-size: 1.8rem; margin-bottom: 30px; color: var(--accent-color); border-bottom: 1px solid #333; padding-bottom: 15px; }
+.service-item { display: flex; align-items: flex-end; margin-bottom: 25px; }
+.service-name { flex-shrink: 0; font-size: 1.2rem; font-weight: 600; }
+.service-dots { flex-grow: 1; border-bottom: 2px dotted #555; margin: 0 15px; position: relative; top: -6px; }
+.service-price { flex-shrink: 0; font-size: 1.3rem; font-weight: 700; font-family: 'Oswald', sans-serif; }
+
+/* Команда */
+.barbers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+.barber-card { text-align: center; }
+.img-wrapper { overflow: hidden; margin-bottom: 20px; background-color: #e0e0e0; }
+.barber-card img { width: 100%; height: 450px; object-fit: cover; filter: grayscale(100%); transition: filter 0.5s, transform 0.5s; display: block; }
+.barber-card:hover img { filter: grayscale(0%); transform: scale(1.03); }
+.barber-card h3 { font-size: 1.8rem; margin-bottom: 5px; color: var(--text-dark); }
+.barber-card p { color: var(--accent-color); font-size: 1rem; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; }
+
+/* Галерея (Без відступів) */
+.gallery-section { display: flex; width: 100%; }
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); width: 100%; }
+.gallery-item { overflow: hidden; }
+.gallery-item img { width: 100%; height: 400px; object-fit: cover; display: block; transition: transform 0.6s ease; filter: brightness(0.7); }
+.gallery-item:hover img { transform: scale(1.1); filter: brightness(1.1); }
+
+/* Контакти */
+.contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+.contact-info h3 { font-size: 1.5rem; color: var(--accent-color); margin-bottom: 10px; }
+.contact-info p { font-size: 1.1rem; color: var(--text-muted-dark); margin-bottom: 5px; }
+.phone-link { color: var(--text-light) !important; font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; }
+.phone-link:hover { color: var(--accent-color) !important; }
+.map iframe { width: 100%; height: 350px; border: none; filter: grayscale(100%) invert(90%) contrast(1.2); }
+
+/* Футер */
+footer { background-color: #0a0a0a; padding: 50px 0; text-align: center; }
+.social-links { margin-bottom: 20px; }
+.social-links a { margin: 0 15px; color: var(--text-light); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
+.social-links a:hover { color: var(--accent-color); }
+.footer-copyright { color: #444; font-size: 0.8rem; letter-spacing: 1px; }
+
+/* Мобільний адаптив */
+@media (max-width: 992px) {
+    .about-wrapper { flex-direction: column; }
+    .about-image img { box-shadow: -10px 10px 0px var(--accent-color); }
+    .services-wrapper { grid-template-columns: 1fr; gap: 40px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .contacts-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 3.5rem; }
+    .section-title { font-size: 2.2rem; }
+    
+    .menu-toggle { display: flex; }
+    .menu-toggle.active span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+    
+    .main-nav {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--bg-dark);
+        display: flex; justify-content: center; align-items: center;
+        opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 1000;
+    }
+    .main-nav.active { opacity: 1; visibility: visible; }
+    .main-nav ul { flex-direction: column; gap: 30px; text-align: center; }
+    .main-nav a { font-size: 1.5rem; }
+    .nav-btn { border: none; }
+    
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gallery-item img { height: 300px; }
+}
