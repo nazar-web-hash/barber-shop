@@ -1,17 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // Анімація появи (Fade-up) при скролі
+    // Анімація появи елементів (включає нові класи slide-left, slide-right, scale-in)
     const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                // Зупиняємо спостереження, щоб анімація програлась лише раз
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-up').forEach(section => observer.observe(section));
+    // Шукаємо всі блоки, яким потрібна анімація
+    document.querySelectorAll('.fade-up, .slide-left, .slide-right, .scale-in').forEach(section => {
+        observer.observe(section);
+    });
 
     // Логіка хедера (ховається при скролі вниз, з'являється при скролі вгору)
     let lastScrollTop = 0;
