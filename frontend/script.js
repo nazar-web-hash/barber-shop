@@ -1,13 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // Анімація появи елементів (включає нові класи slide-left, slide-right, scale-in)
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-    const observer = new IntersectionObserver((entries, observer) => {
+    // Анімація появи елементів ПРИ КОЖНОМУ СКРОЛІ
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Зупиняємо спостереження, щоб анімація програлась лише раз
-                observer.unobserve(entry.target);
+            } else {
+                // Забираємо клас, щоб анімація програлась знову
+                entry.target.classList.remove('visible');
             }
         });
     }, observerOptions);
@@ -17,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         observer.observe(section);
     });
 
-    // Логіка хедера (ховається при скролі вниз, з'являється при скролі вгору)
+    // Логіка хедера
     let lastScrollTop = 0;
     const header = document.querySelector('.main-header');
     const menuToggle = document.querySelector('.menu-toggle');

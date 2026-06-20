@@ -88,7 +88,7 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 
 .hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
 
-/* РОЗУМНИЙ РОЗМІР: Плавне зменшення H1 від 5.5rem на ПК до 2.5rem на телефонах */
+/* РОЗУМНИЙ РОЗМІР: Плавне зменшення H1 */
 .hero-content h1 { 
     font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem); 
     letter-spacing: 6px; 
@@ -103,6 +103,7 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
     color: var(--accent-color); 
     margin-bottom: 60px; 
     animation: fadeInUp 0.8s 0.2s forwards; 
+    opacity: 0; 
     letter-spacing: 1px; 
     line-height: 1.6; 
     font-size: clamp(1.2rem, 3vw + 0.5rem, 2rem);
@@ -110,6 +111,7 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 
 .hero-content .btn { 
     animation: fadeInUp 0.8s 0.4s forwards; 
+    opacity: 0; 
     padding: 22px 55px; 
     font-size: 1rem;
     box-shadow: 0 0 30px rgba(230, 218, 206, 0.45); 
@@ -158,9 +160,9 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 .barber-card h3 { font-size: 1.8rem; margin-bottom: 5px; color: var(--text-main); }
 .barber-card p { color: var(--accent-color); font-size: 1rem; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; }
 
-/* Галерея */
+/* Галерея (Слайдер в обидва боки) */
 .gallery-slider { width: 100%; overflow: hidden; position: relative; padding: 15px 0; }
-.gallery-track { display: flex; gap: 20px; width: max-content; animation: scrollGallery 40s linear infinite; }
+.gallery-track { display: flex; gap: 20px; width: max-content; animation: scrollGallery 45s linear infinite alternate; }
 .gallery-track:hover { animation-play-state: paused; }
 .gallery-item { width: 350px; aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.4); flex-shrink: 0; }
 .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease, filter 0.5s ease; filter: brightness(0.9); }
@@ -202,19 +204,19 @@ footer { background-color: #121212; padding: 50px 0; text-align: center; }
     /* ПЛАВАЮЧЕ МЕНЮ (КАРТКА У ВЕРХНЬОМУ КУТІ) */
     .main-nav {
         position: fixed; 
-        top: 80px;  /* Відступ від верху (відразу під хедером) */
-        right: 20px; /* Відступ від правого краю */
+        top: 80px;  
+        right: 20px; 
         left: auto; 
         width: auto; 
-        min-width: 260px; /* Акуратна ширина картки */
-        height: auto; /* Висота підлаштовується під контент */
+        min-width: 260px; 
+        height: auto; 
         padding: 30px 20px;
-        border-radius: 20px; /* Заокруглені кути */
-        background-color: rgba(26, 26, 26, 0.85); /* Темний матовий фон */
-        backdrop-filter: blur(15px); /* Ефект розмиття скла */
+        border-radius: 20px; 
+        background-color: rgba(26, 26, 26, 0.85); 
+        backdrop-filter: blur(15px); 
         -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(230, 218, 206, 0.15); /* Тонка рамка */
-        box-shadow: 0 15px 35px rgba(0,0,0,0.5); /* Тінь під карткою */
+        border: 1px solid rgba(230, 218, 206, 0.15); 
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
         
         display: flex; 
         flex-direction: column;
@@ -223,7 +225,7 @@ footer { background-color: #121212; padding: 50px 0; text-align: center; }
         
         opacity: 0; 
         visibility: hidden; 
-        transform: translateY(-20px) scale(0.95); /* Легке зменшення перед появою */
+        transform: translateY(-20px) scale(0.95); 
         transform-origin: top right;
         transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         z-index: 1050;
@@ -238,12 +240,10 @@ footer { background-color: #121212; padding: 50px 0; text-align: center; }
     .main-nav ul { flex-direction: column; gap: 20px; text-align: center; width: 100%; }
     .main-nav a { font-size: 1.1rem; }
     
-    /* ВИТЯГНУТА КНОПКА ЗАПИСУ В МЕНЮ */
     .main-nav .nav-btn { 
-        font-size: 1rem;
         display: block;
         margin-top: 10px;
-        padding: 10px 5px; 
+        padding: 12px 0; 
         width: 100%;
         background-color: var(--accent-color); 
         color: var(--bg-graphite) !important;
@@ -271,6 +271,7 @@ footer { background-color: #121212; padding: 50px 0; text-align: center; }
     .section { padding: 70px 0; } 
     .section-title { margin-bottom: 30px; }
     
+    /* Відцентровано на телефоні */
     #services .section-title, 
     #reviews .section-title, 
     #contacts .section-title {
@@ -291,11 +292,28 @@ footer { background-color: #121212; padding: 50px 0; text-align: center; }
     }
     .btn-outline { width: 100%; text-align: center; }
     
+    /* Живий мобільний свайп для карток */
     .barbers-grid, .reviews-grid {
-        display: flex; flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; gap: 15px; -webkit-overflow-scrolling: touch;
+        display: flex; 
+        flex-wrap: nowrap; 
+        overflow-x: auto; 
+        scroll-snap-type: x mandatory; 
+        padding-bottom: 20px; 
+        gap: 15px; 
+        -webkit-overflow-scrolling: touch;
+        scroll-padding: 0 20px;
     }
     .barbers-grid::-webkit-scrollbar, .reviews-grid::-webkit-scrollbar { display: none; }
-    .barber-card, .review-card { flex: 0 0 85%; scroll-snap-align: center; }
+    
+    .barber-card, .review-card { 
+        flex: 0 0 75%; /* Зафіксовано 75% ширини, щоб сусідні картки стирчали з боків як підказка */
+        scroll-snap-align: center; 
+        transition: transform 0.3s ease; 
+    }
+    .barber-card:active, .review-card:active {
+        transform: scale(0.96); 
+    }
+    
     .barber-card img { height: 350px; }
     
     .gallery-item { width: 280px; }
