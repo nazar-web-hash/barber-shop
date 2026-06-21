@@ -85,8 +85,8 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 }
 .hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
 .hero-content h1 { font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem); letter-spacing: 4px; margin-bottom: 25px; animation: fadeInUp 0.8s forwards; text-transform: uppercase; }
-.hero-slogan { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: var(--accent-color); margin-bottom: 60px; animation: fadeInUp 0.8s 0.2s forwards; opacity: 0; letter-spacing: 1px; font-size: clamp(1.2rem, 3vw + 0.5rem, 1.8rem); }
-.hero-content .btn { animation: fadeInUp 0.8s 0.4s forwards; opacity: 0; padding: 22px 55px; font-size: 1rem; box-shadow: 0 0 30px rgba(230, 218, 206, 0.45); border: 1px solid var(--accent-color); }
+.hero-slogan { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: var(--accent-color); margin-bottom: 60px; animation: fadeInUp 0.8s 0.2s forwards; letter-spacing: 1px; font-size: clamp(1.2rem, 3vw + 0.5rem, 1.8rem); }
+.hero-content .btn { animation: fadeInUp 0.8s 0.4s forwards; padding: 22px 55px; font-size: 1rem; box-shadow: 0 0 30px rgba(230, 218, 206, 0.45); border: 1px solid var(--accent-color); }
 .hero-content .btn:hover { box-shadow: 0 10px 35px rgba(230, 218, 206, 0.75); }
 
 /* ФОНИ СЕКЦІЙ */
@@ -265,6 +265,7 @@ footer { background-color: #0d0b0a; padding: 50px 0; text-align: center; positio
     .main-header { height: 70px; }
     .header-container { height: 70px; }
     .section { padding: 70px 0; } 
+    .hero-content .btn { opacity: 0; }
     
     .section-title, #contacts .contact-info { text-align: center; margin-bottom: 30px; }
     .messenger-buttons { justify-content: center; }
