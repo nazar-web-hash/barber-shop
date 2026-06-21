@@ -197,13 +197,13 @@ footer { background-color: #0d0b0a; padding: 50px 0; text-align: center; positio
 .mobile-sticky-cta { 
     display: none; 
     position: fixed; 
-    bottom: -100px; /* Сховано під екран */
+    bottom: -100px; 
     left: 0; 
     width: 100%; 
     background: var(--bg-graphite); 
     box-shadow: 0 -5px 20px rgba(0,0,0,0.5); 
     z-index: 900; 
-    transition: bottom 0.4s ease-in-out; /* Плавний виїзд знизу */
+    transition: bottom 0.4s ease-in-out; 
 }
 .mobile-sticky-cta.show { 
     bottom: 0; 
@@ -269,7 +269,18 @@ footer { background-color: #0d0b0a; padding: 50px 0; text-align: center; positio
     
     .section-title, #contacts .contact-info { text-align: center; margin-bottom: 30px; }
     .messenger-buttons { justify-content: center; }
-    .form-row { grid-template-columns: 1fr; gap: 0; }
+    
+    /* ВИПРАВЛЕНО: Зменшені відступи форми та фікс інпуту дати на телефоні */
+    .booking-wrapper { padding: 25px 15px; } 
+    .form-row { grid-template-columns: 1fr; gap: 20px; }
+    .booking-form input[type="date"] {
+        -webkit-appearance: none;
+        appearance: none;
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
     
     /* АНІМАЦІЯ СВАЙПУ КАРТОК */
     .barbers-grid, .reviews-grid { 
