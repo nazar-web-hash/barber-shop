@@ -1,12 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // Анімації появи
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-    const observer = new IntersectionObserver((entries, observer) => {
+    // 1. Анімації появи загальних блоків (ПРАЦЮЮТЬ ЗАВЖДИ У ДВІ СТОРОНИ)
+    // Трюк: rootMargin розширює зону по боках на 3000px.
+    // Тепер горизонтальний свайп не ламає картки, а скрол вгору/вниз працює завжди!
+    const observerOptions = { 
+        root: null, 
+        rootMargin: '0px 3000px 0px 3000px', 
+        threshold: 0.1 
+    };
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+            } else {
+                // Забираємо клас, щоб при поверненні до блоку анімація відбулась знову
+                entry.target.classList.remove('visible');
             }
         });
     }, observerOptions);
@@ -15,15 +23,52 @@ document.addEventListener("DOMContentLoaded", () => {
         observer.observe(section);
     });
 
-    // Хедер
+    // =========================================================
+    // 2. АНІМАЦІЯ КАРТОК ПРИ ГОРИЗОНТАЛЬНОМУ СВАЙПІ НА ТЕЛЕФОНІ
+    // =========================================================
+    const carouselObserverOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.6 // Спрацьовує, коли картка на 60% в центрі екрана
+    };
+
+    const carouselObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-centered');
+            } else {
+                entry.target.classList.remove('is-centered');
+            }
+        });
+    }, carouselObserverOptions);
+
+    const initCarouselAnimation = () => {
+        const cards = document.querySelectorAll('.barber-card, .review-card');
+        if (window.innerWidth <= 768) {
+            cards.forEach(card => carouselObserver.observe(card));
+        } else {
+            cards.forEach(card => {
+                carouselObserver.unobserve(card);
+                card.classList.remove('is-centered'); // Зкидаємо на ПК
+            });
+        }
+    };
+
+    initCarouselAnimation();
+    window.addEventListener('resize', initCarouselAnimation);
+
+
+    // 3. Логіка хедера та мобільної Sticky CTA
     let lastScrollTop = 0;
     const header = document.querySelector('.main-header');
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.querySelector('.main-nav');
+    const mobileStickyCta = document.querySelector('.mobile-sticky-cta');
 
     window.addEventListener('scroll', () => {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
+        // Ховаємо/показуємо хедер
         if (scrollTop > lastScrollTop && scrollTop > 100) {
             header.classList.add('header-hidden');
             if (mainNav && mainNav.classList.contains('active')) {
@@ -34,8 +79,23 @@ document.addEventListener("DOMContentLoaded", () => {
             header.classList.remove('header-hidden');
         }
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+        // Поява Sticky CTA після 30% прокрутки
+        if (mobileStickyCta) {
+            const totalScrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+            if (totalScrollableHeight > 0) {
+                const scrollPercent = (scrollTop / totalScrollableHeight) * 100;
+                
+                if (scrollPercent >= 30) {
+                    mobileStickyCta.classList.add('show');
+                } else {
+                    mobileStickyCta.classList.remove('show');
+                }
+            }
+        }
     });
 
+    // 4. Відкриття/закриття мобільного меню
     if (menuToggle && mainNav) {
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
@@ -50,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Встановлення мінімальної дати (завтра) для форми запису
+    // 5. Встановлення мінімальної дати (завтра) для форми запису
     const dateInput = document.getElementById('booking-date');
     if (dateInput) {
         const tomorrow = new Date();
@@ -58,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dateInput.min = tomorrow.toISOString().split('T')[0];
     }
 
-    // Логіка відправки форми (Web3Forms / Mock)
+    // 6. Логіка відправки форми (Web3Forms)
     const bookingForm = document.getElementById('booking-form');
     const submitBtn = document.getElementById('submit-btn');
     const successModal = document.getElementById('success-modal');
@@ -66,14 +126,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (bookingForm) {
         bookingForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Зупиняємо стандартну відправку
+            e.preventDefault(); 
             
-            // Імітація завантаження
             const originalText = submitBtn.innerText;
             submitBtn.innerText = 'Відправка...';
             submitBtn.disabled = true;
 
-            // Відправка даних через fetch на Web3Forms
             const formData = new FormData(bookingForm);
             
             fetch('https://api.web3forms.com/submit', {
@@ -81,13 +139,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: formData
             })
             .then(response => {
-                // Показуємо модалку успіху незалежно від реального API ключа для демо
                 successModal.classList.add('active');
                 bookingForm.reset();
             })
             .catch(error => {
                 console.error('Помилка відправки', error);
-                // Навіть при помилці демо-ключа покажемо вікно успіху для портфоліо
                 successModal.classList.add('active');
                 bookingForm.reset();
             })
@@ -104,14 +160,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Cookie Banner Логіка
+    // 7. Cookie Banner Логіка
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptCookiesBtn = document.getElementById('accept-cookies');
 
     if (cookieBanner && acceptCookiesBtn) {
-        // Перевіряємо localStorage
         if (!localStorage.getItem('cookiesAccepted')) {
-            // Затримка 2 секунди перед показом банера
             setTimeout(() => {
                 cookieBanner.classList.add('show');
             }, 2000);
