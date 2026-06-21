@@ -1,24 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // Анімація появи елементів ПРИ КОЖНОМУ СКРОЛІ
+    // Анімації появи
     const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-            } else {
-                // Забираємо клас, щоб анімація програлась знову
-                entry.target.classList.remove('visible');
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Шукаємо всі блоки, яким потрібна анімація
     document.querySelectorAll('.fade-up, .slide-left, .slide-right, .scale-in').forEach(section => {
         observer.observe(section);
     });
 
-    // Логіка хедера
+    // Хедер
     let lastScrollTop = 0;
     const header = document.querySelector('.main-header');
     const menuToggle = document.querySelector('.menu-toggle');
@@ -32,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (mainNav && mainNav.classList.contains('active')) {
                 menuToggle.classList.remove('active');
                 mainNav.classList.remove('active');
-                document.body.style.overflow = '';
             }
         } else {
             header.classList.remove('header-hidden');
@@ -40,21 +36,90 @@ document.addEventListener("DOMContentLoaded", () => {
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     });
 
-    // Відкриття/закриття мобільного меню
     if (menuToggle && mainNav) {
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
             mainNav.classList.toggle('active');
-            document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
         });
 
-        // Закриття меню при кліку на посилання
         document.querySelectorAll('.main-nav a').forEach(link => {
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('active');
                 mainNav.classList.remove('active');
-                document.body.style.overflow = '';
             });
+        });
+    }
+
+    // Встановлення мінімальної дати (завтра) для форми запису
+    const dateInput = document.getElementById('booking-date');
+    if (dateInput) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateInput.min = tomorrow.toISOString().split('T')[0];
+    }
+
+    // Логіка відправки форми (Web3Forms / Mock)
+    const bookingForm = document.getElementById('booking-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const successModal = document.getElementById('success-modal');
+    const closeModal = document.getElementById('close-modal');
+
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Зупиняємо стандартну відправку
+            
+            // Імітація завантаження
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Відправка...';
+            submitBtn.disabled = true;
+
+            // Відправка даних через fetch на Web3Forms
+            const formData = new FormData(bookingForm);
+            
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                // Показуємо модалку успіху незалежно від реального API ключа для демо
+                successModal.classList.add('active');
+                bookingForm.reset();
+            })
+            .catch(error => {
+                console.error('Помилка відправки', error);
+                // Навіть при помилці демо-ключа покажемо вікно успіху для портфоліо
+                successModal.classList.add('active');
+                bookingForm.reset();
+            })
+            .finally(() => {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
+
+    if (closeModal) {
+        closeModal.addEventListener('click', () => {
+            successModal.classList.remove('active');
+        });
+    }
+
+    // Cookie Banner Логіка
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptCookiesBtn = document.getElementById('accept-cookies');
+
+    if (cookieBanner && acceptCookiesBtn) {
+        // Перевіряємо localStorage
+        if (!localStorage.getItem('cookiesAccepted')) {
+            // Затримка 2 секунди перед показом банера
+            setTimeout(() => {
+                cookieBanner.classList.add('show');
+            }, 2000);
+        }
+
+        acceptCookiesBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.classList.remove('show');
         });
     }
 });

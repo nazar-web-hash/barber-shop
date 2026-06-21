@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Oswald:wght@500;700&family=Playfair+Display:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;700&family=Playfair+Display:ital,wght@1,500&display=swap');
 
 /* ================= FULL DARK MODE: БЕЖЕВИЙ АКЦЕНТ ================= */
 :root {
@@ -59,7 +59,6 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 .nav-btn { border: 1px solid var(--accent-color); border-radius: 12px; padding: 8px 15px; color: var(--accent-color) !important; }
 .nav-btn:hover { background-color: var(--accent-color); color: var(--bg-graphite) !important; transform: translateY(-2px); }
 
-/* Кнопка бургера */
 .menu-toggle {
     display: none; flex-direction: column; justify-content: space-between;
     width: 30px; height: 20px; background: transparent; border: none; cursor: pointer; z-index: 1100;
@@ -72,12 +71,11 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
     color: var(--bg-graphite); font-weight: 700; text-transform: uppercase; letter-spacing: 3px;
     border: none; border-radius: 15px; cursor: pointer; transition: all 0.4s ease; font-size: 0.9rem;
 }
-.btn:hover { 
-    background-color: var(--accent-hover); color: var(--bg-graphite); transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(230, 218, 206, 0.2);
-}
+.btn:hover { background-color: var(--accent-hover); color: var(--bg-graphite); transform: translateY(-4px); box-shadow: 0 10px 20px rgba(230, 218, 206, 0.2); }
+.btn-outline { background-color: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); padding: 14px 28px; }
+.btn-outline:hover { background-color: var(--accent-color); color: var(--bg-graphite); }
 
-/* ================= ГОЛОВНИЙ ЕКРАН ================= */
+/* HERO */
 .hero {
     min-height: 100vh; padding-top: 90px; padding-bottom: 60px;
     background: linear-gradient(rgba(26, 26, 26, 0.65), rgba(26, 26, 26, 0.85)), 
@@ -85,65 +83,28 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
     display: flex; align-items: center; justify-content: center; text-align: center; color: var(--text-main);
     position: relative; z-index: 1;
 }
-
 .hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
-
-/* РОЗУМНИЙ РОЗМІР: Плавне зменшення H1 */
-.hero-content h1 { 
-    font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem); 
-    letter-spacing: 6px; 
-    margin-bottom: 25px; 
-    animation: fadeInUp 0.8s forwards; 
-}
-
-.hero-slogan { 
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-weight: 500;
-    color: var(--accent-color); 
-    margin-bottom: 60px; 
-    animation: fadeInUp 0.8s 0.2s forwards; 
-    opacity: 0; 
-    letter-spacing: 1px; 
-    line-height: 1.6; 
-    font-size: clamp(1.2rem, 3vw + 0.5rem, 2rem);
-}
-
-.hero-content .btn { 
-    animation: fadeInUp 0.8s 0.4s forwards; 
-    opacity: 0; 
-    padding: 22px 55px; 
-    font-size: 1rem;
-    box-shadow: 0 0 30px rgba(230, 218, 206, 0.45); 
-    border: 1px solid var(--accent-color);
-}
+.hero-content h1 { font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem); letter-spacing: 4px; margin-bottom: 25px; animation: fadeInUp 0.8s forwards; text-transform: uppercase; }
+.hero-slogan { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: var(--accent-color); margin-bottom: 60px; animation: fadeInUp 0.8s 0.2s forwards; letter-spacing: 1px; font-size: clamp(1.2rem, 3vw + 0.5rem, 1.8rem); }
+.hero-content .btn { animation: fadeInUp 0.8s 0.4s forwards; padding: 22px 55px; font-size: 1rem; box-shadow: 0 0 30px rgba(230, 218, 206, 0.45); border: 1px solid var(--accent-color); }
 .hero-content .btn:hover { box-shadow: 0 10px 35px rgba(230, 218, 206, 0.75); }
 
-/* ================= 3 ТЕМНІ ФОНИ ================= */
-.card-overlap {
-    position: relative;
-    z-index: 2;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
-    margin-top: -40px;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
-}
-
+/* ФОНИ СЕКЦІЙ */
+.card-overlap { position: relative; z-index: 2; border-top-left-radius: 40px; border-top-right-radius: 40px; margin-top: -40px; box-shadow: 0 -10px 30px rgba(0,0,0,0.3); }
 .section { padding: 100px 0; }
 .section-graphite { background-color: var(--bg-graphite); }
 .section-brown { background-color: var(--bg-brown); }
 .section-khaki { background-color: var(--bg-khaki); }
-
 .section-title { font-size: 3rem; margin-bottom: 50px; letter-spacing: 3px; color: var(--accent-color); }
 
-/* Про нас */
+/* ПРО НАС */
 .about-wrapper { display: flex; align-items: center; gap: 50px; }
 .about-text-block { flex: 1; }
 .about-text-block p { font-size: 1.2rem; color: var(--text-muted); line-height: 1.8; }
 .about-image { flex: 1; }
-.about-image img { width: 100%; max-height: 500px; object-fit: cover; display: block; border-radius: 12px; box-shadow: -15px 15px 0px var(--accent-color); }
+.about-image img { max-width: 100%; height: 500px; object-fit: cover; display: block; border-radius: 12px; box-shadow: -15px 15px 0px var(--accent-color); }
 
-/* Прайс-лист */
+/* ПРАЙС */
 .services-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
 .service-category h3 { font-size: 1.8rem; margin-bottom: 25px; color: var(--accent-color); border-bottom: 1px solid rgba(230,218,206,0.2); padding-bottom: 10px; }
 .service-item { display: flex; align-items: flex-end; margin-bottom: 20px; }
@@ -151,16 +112,28 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 .service-dots { flex-grow: 1; border-bottom: 2px dotted var(--text-muted); margin: 0 15px; position: relative; top: -6px; }
 .service-price { flex-shrink: 0; font-size: 1.3rem; font-weight: 700; font-family: 'Oswald', sans-serif; color: var(--accent-color); }
 
-/* Команда */
+/* КОМАНДА */
 .barbers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto; }
-.barber-card { text-align: center; }
-.img-wrapper { overflow: hidden; margin-bottom: 20px; background-color: rgba(255,255,255,0.05); border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-.barber-card img { width: 100%; height: 400px; object-fit: cover; filter: grayscale(80%); transition: filter 0.5s, transform 0.6s ease; display: block; }
+.barber-card { text-align: center; background-color: rgba(255,255,255,0.03); border-radius: 12px; padding-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid rgba(230,218,206,0.05); }
+.img-wrapper { overflow: hidden; margin-bottom: 15px; }
+.barber-card img { width: 100%; height: 350px; object-fit: cover; filter: grayscale(80%); transition: filter 0.5s, transform 0.6s ease; display: block; }
 .barber-card:hover img { filter: grayscale(0%); transform: scale(1.05); }
 .barber-card h3 { font-size: 1.8rem; margin-bottom: 5px; color: var(--text-main); }
-.barber-card p { color: var(--accent-color); font-size: 1rem; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; }
+.barber-position { color: var(--accent-color); font-size: 0.9rem; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; margin-bottom: 15px; }
+.barber-details { padding: 0 20px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+.barber-details strong { color: var(--text-main); }
 
-/* Галерея (Слайдер в обидва боки) */
+/* ОНЛАЙН ЗАПИС (ФОРМА) */
+.booking-wrapper { max-width: 700px; margin: 0 auto; background: rgba(0,0,0,0.2); padding: 40px; border-radius: 20px; border: 1px solid rgba(230,218,206,0.1); }
+.form-group { margin-bottom: 20px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.booking-form input, .booking-form select, .booking-form textarea { width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(230,218,206,0.2); color: var(--text-main); border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.3s; }
+.booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus { border-color: var(--accent-color); }
+.booking-form option { background-color: var(--bg-graphite); color: var(--text-main); }
+.form-btn { width: 100%; text-align: center; padding: 20px; font-size: 1.1rem; }
+.form-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+/* ГАЛЕРЕЯ */
 .gallery-slider { width: 100%; overflow: hidden; position: relative; padding: 15px 0; }
 .gallery-track { display: flex; gap: 20px; width: max-content; animation: scrollGallery 45s linear infinite alternate; }
 .gallery-track:hover { animation-play-state: paused; }
@@ -169,7 +142,7 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 .gallery-item:hover img { transform: scale(1.1); filter: brightness(1.1); }
 @keyframes scrollGallery { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 10px)); } }
 
-/* Відгуки */
+/* ВІДГУКИ */
 .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 .review-card { background: rgba(255, 255, 255, 0.05); padding: 35px 30px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); border: 1px solid rgba(230,218,206,0.1); border-left: 4px solid var(--accent-color); transition: transform 0.4s ease, border-color 0.4s ease; }
 .review-card:hover { transform: translateY(-10px); border-color: var(--accent-color); background: rgba(255, 255, 255, 0.08); }
@@ -177,80 +150,63 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 .review-card p { color: var(--text-main); font-size: 1rem; font-style: italic; line-height: 1.6; }
 .review-date { display: block; font-size: 0.85rem; color: var(--text-muted); margin-top: 20px; font-weight: 600; }
 
-/* Контакти */
+/* FAQ */
+.faq-wrapper { max-width: 800px; margin: 0 auto; }
+.faq-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(230,218,206,0.1); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: all 0.3s ease; }
+.faq-item summary { padding: 20px; font-size: 1.1rem; font-weight: 600; color: var(--text-main); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; outline: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; color: var(--accent-color); font-size: 1.5rem; font-weight: 400; transition: transform 0.3s; }
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { padding: 0 20px 20px; color: var(--text-muted); line-height: 1.6; border-top: 1px solid rgba(230,218,206,0.05); margin-top: 10px; padding-top: 15px; }
+
+/* КОНТАКТИ */
 .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; } 
 .contact-info h3 { font-size: 1.5rem; color: var(--accent-color); margin-bottom: 10px; }
 .contact-info p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 5px; }
 .phone-link { color: var(--text-main) !important; font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; }
 .phone-link:hover { color: var(--accent-color) !important; }
-.map iframe { width: 100%; height: 350px; border: none; border-radius: 16px; filter: grayscale(100%) invert(90%) contrast(1.2); }
+.map iframe { width: 100%; height: 400px; border: none; border-radius: 16px; filter: grayscale(100%) invert(90%) contrast(1.2); }
 .contact-info h3:last-of-type { margin-top: 20px; margin-bottom: 15px; font-size: 1.2rem; color: var(--text-main); }
+.landmark-list { list-style: none; margin: 15px 0 25px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; }
 .messenger-buttons { display: flex; flex-wrap: wrap; gap: 15px; }
-.btn-outline { background-color: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); padding: 14px 28px; font-size: 0.85rem; border-radius: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.4s ease; display: inline-block; }
-.btn-outline:hover { background-color: var(--accent-color); color: var(--bg-graphite); transform: translateY(-3px); }
+.social-icon { color: var(--accent-color); border: 1px solid rgba(230,218,206,0.3); padding: 10px 20px; border-radius: 10px; text-transform: uppercase; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; }
+.social-icon:hover { background: var(--accent-color); color: var(--bg-graphite); }
 
-/* Футер */
-footer { background-color: #121212; padding: 50px 0; text-align: center; }
+/* ФУТЕР */
+footer { background-color: #0d0b0a; padding: 50px 0; text-align: center; position: relative; z-index: 2; padding-bottom: 80px; /* Відступ для sticky cta */ }
 .footer-content { display: flex; flex-direction: column; align-items: center; gap: 20px; }
 .social-links { display: flex; gap: 20px; }
 .social-links a { color: var(--text-main); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
 .social-links a:hover { color: var(--accent-color); }
-.footer-copyright { color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px; }
+.footer-copyright { color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 10px; }
+.footer-legal a { color: var(--text-muted); font-size: 0.8rem; text-decoration: underline; margin: 0 10px; }
+.footer-legal a:hover { color: var(--accent-color); }
+
+/* СТИЛІ МОДАЛОК І БАНЕРІВ */
+.cookie-banner { position: fixed; bottom: -100%; left: 0; width: 100%; background: rgba(26,26,26,0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--accent-color); padding: 20px; display: flex; justify-content: center; align-items: center; gap: 20px; z-index: 9999; transition: bottom 0.5s ease; }
+.cookie-banner.show { bottom: 0; }
+.cookie-banner p { color: var(--text-main); font-size: 0.9rem; margin: 0; max-width: 800px; }
+
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; z-index: 10000; transition: all 0.3s ease; }
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content { background: var(--bg-graphite); padding: 40px; border-radius: 20px; border: 1px solid var(--accent-color); text-align: center; max-width: 400px; }
+.modal-content h3 { color: var(--accent-color); margin-bottom: 15px; font-size: 1.5rem; }
+.modal-content p { color: var(--text-muted); margin-bottom: 25px; }
+
+/* STICKY CTA (Mobile only) */
+.mobile-sticky-cta { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-graphite); box-shadow: 0 -5px 20px rgba(0,0,0,0.5); z-index: 900; }
+.mobile-sticky-cta a { flex: 1; text-align: center; padding: 18px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+.cta-call { background: var(--bg-brown); color: var(--text-main) !important; border-top: 1px solid rgba(230,218,206,0.2); }
+.cta-book { background: var(--accent-color); color: var(--bg-graphite) !important; }
 
 /* ================= МОБІЛЬНИЙ АДАПТИВ ================= */
 @media (max-width: 1024px) {
     .menu-toggle { display: flex; }
-    
-    /* ПЛАВАЮЧЕ МЕНЮ (КАРТКА У ВЕРХНЬОМУ КУТІ) */
-    .main-nav {
-        position: fixed; 
-        top: 80px;  
-        right: 20px; 
-        left: auto; 
-        width: auto; 
-        min-width: 260px; 
-        height: auto; 
-        padding: 30px 20px;
-        border-radius: 20px; 
-        background-color: rgba(26, 26, 26, 0.85); 
-        backdrop-filter: blur(15px); 
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(230, 218, 206, 0.15); 
-        box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
-        
-        display: flex; 
-        flex-direction: column;
-        justify-content: center; 
-        align-items: center;
-        
-        opacity: 0; 
-        visibility: hidden; 
-        transform: translateY(-20px) scale(0.95); 
-        transform-origin: top right;
-        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        z-index: 1050;
-    }
-    
-    .main-nav.active { 
-        opacity: 1; 
-        visibility: visible; 
-        transform: translateY(0) scale(1);
-    }
-    
+    .main-nav { position: fixed; top: 80px; right: 20px; left: auto; width: auto; min-width: 260px; padding: 30px 20px; border-radius: 20px; background-color: rgba(26, 26, 26, 0.85); backdrop-filter: blur(15px); border: 1px solid rgba(230, 218, 206, 0.15); box-shadow: 0 15px 35px rgba(0,0,0,0.5); display: flex; flex-direction: column; opacity: 0; visibility: hidden; transform: translateY(-20px) scale(0.95); transition: all 0.3s; z-index: 1050; }
+    .main-nav.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
     .main-nav ul { flex-direction: column; gap: 20px; text-align: center; width: 100%; }
     .main-nav a { font-size: 1.1rem; }
-    
-    .main-nav .nav-btn { 
-        display: block;
-        margin-top: 10px;
-        padding: 12px 0; 
-        width: 100%;
-        background-color: var(--accent-color); 
-        color: var(--bg-graphite) !important;
-        border-radius: 10px;
-        text-align: center;
-    }
-    
+    .main-nav .nav-btn { display: block; margin-top: 10px; padding: 12px 0; width: 100%; background-color: var(--accent-color); color: var(--bg-graphite) !important; border-radius: 10px; text-align: center; }
     .menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     .menu-toggle.active span:nth-child(2) { opacity: 0; }
     .menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
@@ -259,7 +215,7 @@ footer { background-color: #121212; padding: 50px 0; text-align: center; }
 @media (max-width: 992px) {
     .container { padding: 0 20px; }
     .about-wrapper { flex-direction: column; text-align: center; gap: 40px; }
-    .about-image img { box-shadow: -10px 10px 0px var(--accent-color); max-height: 400px; }
+    .about-image img { max-height: 400px; }
     .services-wrapper { grid-template-columns: 1fr; gap: 40px; }
     .contacts-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
     .card-overlap { border-top-left-radius: 30px; border-top-right-radius: 30px; margin-top: -30px; }
@@ -269,58 +225,22 @@ footer { background-color: #121212; padding: 50px 0; text-align: center; }
     .main-header { height: 70px; }
     .header-container { height: 70px; }
     .section { padding: 70px 0; } 
-    .section-title { margin-bottom: 30px; }
     
-    /* Відцентровано на телефоні */
-    #services .section-title, 
-    #reviews .section-title, 
-    #contacts .section-title {
-        text-align: center;
-    }
+    .section-title, #contacts .contact-info { text-align: center; margin-bottom: 30px; }
+    .messenger-buttons { justify-content: center; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
     
-    #contacts .contact-info, 
-    #contacts .contact-info p, 
-    #contacts .contact-info h3 {
-        text-align: center;
-    }
-    
-    .messenger-buttons { 
-        display: flex;
-        flex-direction: column; 
-        align-items: center; 
-        width: 100%;
-    }
-    .btn-outline { width: 100%; text-align: center; }
-    
-    /* Живий мобільний свайп для карток */
-    .barbers-grid, .reviews-grid {
-        display: flex; 
-        flex-wrap: nowrap; 
-        overflow-x: auto; 
-        scroll-snap-type: x mandatory; 
-        padding-bottom: 20px; 
-        gap: 15px; 
-        -webkit-overflow-scrolling: touch;
-        scroll-padding: 0 20px;
-    }
+    /* Свайп-слайдери */
+    .barbers-grid, .reviews-grid { display: flex; flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; gap: 15px; -webkit-overflow-scrolling: touch; scroll-padding: 0 20px; }
     .barbers-grid::-webkit-scrollbar, .reviews-grid::-webkit-scrollbar { display: none; }
-    
-    .barber-card, .review-card { 
-        flex: 0 0 75%; /* Зафіксовано 75% ширини, щоб сусідні картки стирчали з боків як підказка */
-        scroll-snap-align: center; 
-        transition: transform 0.3s ease; 
-    }
-    .barber-card:active, .review-card:active {
-        transform: scale(0.96); 
-    }
-    
-    .barber-card img { height: 350px; }
-    
+    .barber-card, .review-card { flex: 0 0 80%; scroll-snap-align: center; }
     .gallery-item { width: 280px; }
+    
+    /* Увімкнення Sticky CTA на мобільному */
+    .mobile-sticky-cta { display: flex; }
+    .cookie-banner { flex-direction: column; text-align: center; bottom: -120%; padding-bottom: 80px; /* щоб не перекривало кнопки */ }
 }
 
 @media (min-width: 993px) {
     .section-title { font-size: clamp(2.2rem, 2vw + 0.5rem, 3rem); }
-    .about-text-block p { font-size: clamp(1rem, 1vw + 0.2rem, 1.2rem); }
-    .service-category h3, .barber-card h3, .contact-info h3 { font-size: clamp(1.4rem, 1vw + 0.5rem, 1.8rem); }
 }
