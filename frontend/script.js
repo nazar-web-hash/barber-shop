@@ -1,18 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. Анімації появи блоків (ТЕПЕР ПРАЦЮЮТЬ ЛИШЕ ОДИН РАЗ, БЕЗ ЛАГІВ НА ТЕЛЕФОНІ)
+    // Анімації появи блоків ПРАЦЮЮТЬ ЗАВЖДИ при скролі і на ПК, і на Телефоні
     const observerOptions = { 
         root: null, 
         rootMargin: '0px', 
         threshold: 0.1 
     };
     
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Вимикаємо спостереження, щоб елемент не зникав і не дьоргався при скролі вгору
-                observer.unobserve(entry.target);
+            } else {
+                // Тут знаходиться секрет: 
+                // Якщо ми на телефоні (< 768px), ми НЕ забираємо клас 'visible'.
+                // Тому при свайпі карток вбік вони не зникають і не блимають.
+                // А на комп'ютерах (> 768px) клас забирається, і анімація повторюється завжди.
+                if (window.innerWidth > 768) {
+                    entry.target.classList.remove('visible');
+                }
             }
         });
     }, observerOptions);
@@ -21,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         observer.observe(section);
     });
 
-    // 2. Логіка хедера та мобільної Sticky CTA
+    // Логіка хедера та мобільної Sticky CTA
     let lastScrollTop = 0;
     const header = document.querySelector('.main-header');
     const menuToggle = document.querySelector('.menu-toggle');
@@ -58,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 3. Відкриття/закриття мобільного меню
+    // Відкриття/закриття мобільного меню
     if (menuToggle && mainNav) {
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
@@ -74,7 +80,57 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 4. Cookie Banner Логіка
+    // Встановлення мінімальної дати (завтра) для форми запису
+    const dateInput = document.getElementById('booking-date');
+    if (dateInput) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateInput.min = tomorrow.toISOString().split('T')[0];
+    }
+
+    // Логіка відправки форми (Web3Forms)
+    const bookingForm = document.getElementById('booking-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const successModal = document.getElementById('success-modal');
+    const closeModal = document.getElementById('close-modal');
+
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Відправка...';
+            submitBtn.disabled = true;
+
+            const formData = new FormData(bookingForm);
+            
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                successModal.classList.add('active');
+                bookingForm.reset();
+            })
+            .catch(error => {
+                console.error('Помилка відправки', error);
+                successModal.classList.add('active');
+                bookingForm.reset();
+            })
+            .finally(() => {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
+
+    if (closeModal) {
+        closeModal.addEventListener('click', () => {
+            successModal.classList.remove('active');
+        });
+    }
+
+    // Cookie Banner Логіка
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptCookiesBtn = document.getElementById('accept-cookies');
 

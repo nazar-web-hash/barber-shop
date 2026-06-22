@@ -108,8 +108,8 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 .services-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
 .service-category h3 { font-size: 1.8rem; margin-bottom: 25px; color: var(--accent-color); border-bottom: 1px solid rgba(230,218,206,0.2); padding-bottom: 10px; }
 .service-item { display: flex; align-items: flex-end; margin-bottom: 20px; }
-.service-name { flex-shrink: 0; font-size: 1.2rem; font-weight: 600; }
-.service-dots { flex-grow: 1; border-bottom: 2px dotted var(--text-muted); margin: 0 15px; position: relative; top: -6px; }
+.service-name { font-size: 1.2rem; font-weight: 600; padding-right: 5px; } 
+.service-dots { flex-grow: 1; border-bottom: 2px dotted var(--text-muted); margin: 0 10px; position: relative; top: -6px; min-width: 20px; } 
 .service-price { flex-shrink: 0; font-size: 1.3rem; font-weight: 700; font-family: 'Oswald', sans-serif; color: var(--accent-color); }
 
 /* КОМАНДА */
@@ -123,12 +123,22 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 .barber-details { padding: 0 20px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 .barber-details strong { color: var(--text-main); }
 
+/* ОНЛАЙН ЗАПИС (ФОРМА) */
+.booking-wrapper { max-width: 700px; margin: 0 auto; background: rgba(0,0,0,0.2); padding: 40px; border-radius: 20px; border: 1px solid rgba(230,218,206,0.1); }
+.form-group { margin-bottom: 20px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.booking-form input, .booking-form select, .booking-form textarea { width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(230,218,206,0.2); color: var(--text-main); border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.3s; }
+.booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus { border-color: var(--accent-color); }
+.booking-form option { background-color: var(--bg-graphite); color: var(--text-main); }
+.form-btn { width: 100%; text-align: center; padding: 20px; font-size: 1.1rem; }
+.form-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
 /* ГАЛЕРЕЯ З АПАРАТНИМ ПРИСКОРЕННЯМ */
 .gallery-slider { width: 100%; overflow: hidden; position: relative; padding: 15px 0; }
 .gallery-track { 
     display: flex; gap: 20px; width: max-content; 
     animation: scrollGallery 45s linear infinite alternate; 
-    will-change: transform; /* Змушує телефон використовувати відеокарту, прибирає лаги */
+    will-change: transform; 
 }
 .gallery-track:hover { animation-play-state: paused; }
 .gallery-item { width: 350px; aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.4); flex-shrink: 0; }
@@ -259,23 +269,31 @@ footer { background-color: #0d0b0a; padding: 50px 0; text-align: center; positio
     .section-title, #contacts .contact-info { text-align: center; margin-bottom: 30px; }
     .messenger-buttons { justify-content: center; }
     
-    /* ІДЕАЛЬНИЙ НАТИВНИЙ СВАЙП: Без лагів та дьоргання */
+    .service-name { font-size: 1.05rem; }
+    .service-price { font-size: 1.15rem; }
+    
+    /* 1. ФОТО МАЙСТРІВ ОДРАЗУ КОЛЬОРОВІ НА ТЕЛЕФОНІ */
+    .barber-card img {
+        filter: grayscale(0%) !important;
+    }
+    
+    /* 2. ПОВЕРНУТО МАГНІТНУ ФІКСАЦІЮ (scroll-snap) */
     .barbers-grid, .reviews-grid { 
         display: flex; 
         flex-wrap: nowrap; 
         overflow-x: auto; 
-        scroll-snap-type: x mandatory; 
+        scroll-snap-type: x mandatory; /* Магніт увімкнено */
         padding-bottom: 20px; 
         gap: 15px; 
         -webkit-overflow-scrolling: touch; 
-        scroll-padding: 0 20px; 
-        scrollbar-width: none; /* Ховає смугу прокрутки */
+        scroll-padding: 0 20px; /* Допомагає рівно центрувати магніт */
+        scrollbar-width: none; 
     }
     .barbers-grid::-webkit-scrollbar, .reviews-grid::-webkit-scrollbar { display: none; }
     
     .barber-card, .review-card { 
         flex: 0 0 80%; 
-        scroll-snap-align: center; 
+        scroll-snap-align: center; /* Кожна картка тепер фіксується рівно по центру */
     }
     
     .gallery-item { width: 280px; }
