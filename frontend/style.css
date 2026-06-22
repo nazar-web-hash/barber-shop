@@ -85,8 +85,8 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 }
 .hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
 .hero-content h1 { font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem); letter-spacing: 4px; margin-bottom: 25px; animation: fadeInUp 0.8s forwards; text-transform: uppercase; }
-.hero-slogan { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: var(--accent-color); margin-bottom: 60px; animation: fadeInUp 0.8s 0.2s forwards; letter-spacing: 1px; font-size: clamp(1.2rem, 3vw + 0.5rem, 1.8rem); }
-.hero-content .btn { animation: fadeInUp 0.8s 0.4s forwards; padding: 22px 55px; font-size: 1rem; box-shadow: 0 0 30px rgba(230, 218, 206, 0.45); border: 1px solid var(--accent-color); }
+.hero-slogan { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: var(--accent-color); margin-bottom: 60px; animation: fadeInUp 0.8s 0.2s forwards; opacity: 0; letter-spacing: 1px; font-size: clamp(1.2rem, 3vw + 0.5rem, 1.8rem); }
+.hero-content .btn { animation: fadeInUp 0.8s 0.4s forwards; opacity: 0; padding: 22px 55px; font-size: 1rem; box-shadow: 0 0 30px rgba(230, 218, 206, 0.45); border: 1px solid var(--accent-color); }
 .hero-content .btn:hover { box-shadow: 0 10px 35px rgba(230, 218, 206, 0.75); }
 
 /* ФОНИ СЕКЦІЙ */
@@ -123,24 +123,21 @@ a { text-decoration: none; transition: all 0.3s ease; color: inherit; }
 .barber-details { padding: 0 20px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 .barber-details strong { color: var(--text-main); }
 
-/* ОНЛАЙН ЗАПИС (ФОРМА) */
-.booking-wrapper { max-width: 700px; margin: 0 auto; background: rgba(0,0,0,0.2); padding: 40px; border-radius: 20px; border: 1px solid rgba(230,218,206,0.1); }
-.form-group { margin-bottom: 20px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.booking-form input, .booking-form select, .booking-form textarea { width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(230,218,206,0.2); color: var(--text-main); border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.3s; }
-.booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus { border-color: var(--accent-color); }
-.booking-form option { background-color: var(--bg-graphite); color: var(--text-main); }
-.form-btn { width: 100%; text-align: center; padding: 20px; font-size: 1.1rem; }
-.form-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-
-/* ГАЛЕРЕЯ */
+/* ГАЛЕРЕЯ З АПАРАТНИМ ПРИСКОРЕННЯМ */
 .gallery-slider { width: 100%; overflow: hidden; position: relative; padding: 15px 0; }
-.gallery-track { display: flex; gap: 20px; width: max-content; animation: scrollGallery 45s linear infinite alternate; }
+.gallery-track { 
+    display: flex; gap: 20px; width: max-content; 
+    animation: scrollGallery 45s linear infinite alternate; 
+    will-change: transform; /* Змушує телефон використовувати відеокарту, прибирає лаги */
+}
 .gallery-track:hover { animation-play-state: paused; }
 .gallery-item { width: 350px; aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.4); flex-shrink: 0; }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease, filter 0.5s ease; filter: brightness(0.9); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease, filter 0.5s ease; filter: brightness(0.9); will-change: transform, filter; }
 .gallery-item:hover img { transform: scale(1.1); filter: brightness(1.1); }
-@keyframes scrollGallery { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 10px)); } }
+@keyframes scrollGallery { 
+    0% { transform: translate3d(0, 0, 0); } 
+    100% { transform: translate3d(calc(-50% - 10px), 0, 0); } 
+}
 
 /* ВІДГУКИ */
 .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
@@ -182,16 +179,10 @@ footer { background-color: #0d0b0a; padding: 50px 0; text-align: center; positio
 .footer-legal a { color: var(--text-muted); font-size: 0.8rem; text-decoration: underline; margin: 0 10px; }
 .footer-legal a:hover { color: var(--accent-color); }
 
-/* СТИЛІ МОДАЛОК І БАНЕРІВ */
+/* СТИЛІ БАНЕРА COOKIE */
 .cookie-banner { position: fixed; bottom: -100%; left: 0; width: 100%; background: rgba(26,26,26,0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--accent-color); padding: 20px; display: flex; justify-content: center; align-items: center; gap: 20px; z-index: 9999; transition: bottom 0.5s ease; }
 .cookie-banner.show { bottom: 0; }
 .cookie-banner p { color: var(--text-main); font-size: 0.9rem; margin: 0; max-width: 800px; }
-
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; z-index: 10000; transition: all 0.3s ease; }
-.modal-overlay.active { opacity: 1; visibility: visible; }
-.modal-content { background: var(--bg-graphite); padding: 40px; border-radius: 20px; border: 1px solid var(--accent-color); text-align: center; max-width: 400px; }
-.modal-content h3 { color: var(--accent-color); margin-bottom: 15px; font-size: 1.5rem; }
-.modal-content p { color: var(--text-muted); margin-bottom: 25px; }
 
 /* STICKY CTA (Mobile only) */
 .mobile-sticky-cta { 
@@ -220,7 +211,6 @@ footer { background-color: #0d0b0a; padding: 50px 0; text-align: center; positio
     .main-nav ul { flex-direction: column; gap: 20px; text-align: center; width: 100%; }
     .main-nav a { font-size: 1.1rem; }
     
-    /* ПРЕМІАЛЬНА КНОПКА ЗАПИСУ В МЕНЮ (СЯЮЧИЙ КОНТУР) */
     .main-nav .nav-btn { 
         display: block; 
         margin-top: 5px; 
@@ -239,7 +229,6 @@ footer { background-color: #0d0b0a; padding: 50px 0; text-align: center; positio
         transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
     
-    /* АНІМАЦІЯ ПРИ ДОТИКУ (ТАПІ) НА ТЕЛЕФОНІ */
     .main-nav .nav-btn:active {
         background-color: var(--accent-color);
         color: var(--bg-graphite) !important;
@@ -270,19 +259,7 @@ footer { background-color: #0d0b0a; padding: 50px 0; text-align: center; positio
     .section-title, #contacts .contact-info { text-align: center; margin-bottom: 30px; }
     .messenger-buttons { justify-content: center; }
     
-    /* ВИПРАВЛЕНО: Зменшені відступи форми та фікс інпуту дати на телефоні */
-    .booking-wrapper { padding: 25px 15px; } 
-    .form-row { grid-template-columns: 1fr; gap: 20px; }
-    .booking-form input[type="date"] {
-        -webkit-appearance: none;
-        appearance: none;
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-    }
-    
-    /* АНІМАЦІЯ СВАЙПУ КАРТОК */
+    /* ІДЕАЛЬНИЙ НАТИВНИЙ СВАЙП: Без лагів та дьоргання */
     .barbers-grid, .reviews-grid { 
         display: flex; 
         flex-wrap: nowrap; 
@@ -292,27 +269,18 @@ footer { background-color: #0d0b0a; padding: 50px 0; text-align: center; positio
         gap: 15px; 
         -webkit-overflow-scrolling: touch; 
         scroll-padding: 0 20px; 
+        scrollbar-width: none; /* Ховає смугу прокрутки */
     }
     .barbers-grid::-webkit-scrollbar, .reviews-grid::-webkit-scrollbar { display: none; }
     
     .barber-card, .review-card { 
-        flex: 0 0 75%; 
+        flex: 0 0 80%; 
         scroll-snap-align: center; 
-        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
-        opacity: 0.4; 
-        transform: scale(0.85); 
-    }
-    
-    .barber-card.is-centered, .review-card.is-centered {
-        opacity: 1;
-        transform: scale(1);
     }
     
     .gallery-item { width: 280px; }
     
-    /* Увімкнення Sticky CTA */
     .mobile-sticky-cta { display: flex; }
-    
     .cookie-banner { flex-direction: column; text-align: center; bottom: -120%; padding-bottom: 80px; }
 }
 
